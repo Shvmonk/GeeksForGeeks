@@ -3,7 +3,8 @@
 
 **`TAXI BOOKING - 21 MARCH`**
 
-```class Solution {
+```java
+class Solution {
     public static int minimumTime(int N, int cur, int[] pos, int[] time) {
         // code here
         int mn=(int)1e9;
