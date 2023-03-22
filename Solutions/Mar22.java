@@ -1,9 +1,3 @@
-# **💡  GeeksForGeeks**
-**POTD Solution**
-
-**`TAXI BOOKING - 21 MARCH`**
-
-```java
 class Solution 
 { 
     static long solve(int X,int Y, String S)
@@ -54,4 +48,3 @@ class Solution
         return answer;
 	}
 } 
-```
