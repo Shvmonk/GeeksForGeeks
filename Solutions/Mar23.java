@@ -1,9 +1,3 @@
-# **💡  GeeksForGeeks**
-**POTD Solution**
-
-**`TAXI BOOKING - 21 MARCH`**
-
-```java
 class Solution
 {
     static int ans;
@@ -52,4 +46,3 @@ class Solution
         fun(root.right,val+root.data,sum);
     }
 }
-```
