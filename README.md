@@ -1,7 +1,7 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`TAXI BOOKING - 23 MARCH`**
+**`BST MAXIMUM DIFFERENCE - 23 MARCH`**
 
 ```java
 class Solution
