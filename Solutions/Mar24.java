@@ -1,9 +1,4 @@
-# **💡  GeeksForGeeks**
-**POTD Solution**
-
-**`REMOVE AND REVERSE - 24 MARCH`**
-
-```java
+//REMOVE AND REVERSE - 24 MARCH
 class Solution 
 { 
     String removeReverse(String S) 
@@ -58,4 +53,3 @@ class Solution
         return ans;
     }
 } 
-```
