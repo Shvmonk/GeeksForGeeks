@@ -1,10 +1,4 @@
-# **💡  GeeksForGeeks**
-**POTD Solution**
-
-**`REDUNDANT PARENTHESIS - 25 MARCH`**
-
-```cpp
-//REDUNDANT PARENTHESIS - 25 MARCH (C++)
+//REDUNDANT PARENTHESIS - 25 MARCH
 class Solution{   
 public:
     string removeBrackets(string s)
@@ -156,4 +150,3 @@ public:
         return res;
     }
 };
-```
