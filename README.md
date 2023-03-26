@@ -1,28 +1,38 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FROGS AND JUMPS - 26 MARCH`**
+**`DIVIDE IN INCREMENTAL GROUPS - 27 MARCH`**
 
 ```java
-//FROGS AND JUMPS -26 MARCH (JAVA)
+//DIVIDE IN INCREMENTAL GROUPS - 27 MARCH (JAVA)
 class Solution {
-    public int unvisitedLeaves(int N, int leaves, int frogs[]) {
-        
-        int leaveStatus[] = new int[leaves+1]; 
-		for (int i = 0; i < N; i++) {
-			if (frogs[i] <= leaves && leaveStatus[frogs[i]] == 0) {
-				for (int j = frogs[i]; j <= leaves; j += frogs[i]) {
-					leaveStatus[j] = 1;
-				}
-			}
-		}
-		int leafCount = leaves;
-		for (int i : leaveStatus) {
-			if (i==1) {
-				leafCount--;
-			}
-		}
-		return leafCount;
+    public int calculate(int pos, int prev, int left, int K, int[][][] dp) {
+        if (pos == K) {
+            if (left == 0)
+                return 1;
+            else
+                return 0;
+        }
+        if (left == 0) return 0;
+        if (dp[pos][prev][left] != -1) return dp[pos][prev][left];
+
+        int answer = 0;
+        for (int i = prev; i <= left; i++) {
+            answer += calculate(pos + 1, i, left - i, K, dp);
+           
+        }
+
+        return dp[pos][prev][left] = answer;
+    }
+    int countWaystoDivide(int N, int K) {
+        int dp[][][] = new int[K + 1][N + 1][N + 1];
+        for (int i = 0; i <= K; i++) {
+            for (int j = 0; j <= N; j++) {
+                Arrays.fill(dp[i][j], -1);
+            }
+        }
+
+        return calculate(0, 1, N, K, dp);
     }
 };
 ```
