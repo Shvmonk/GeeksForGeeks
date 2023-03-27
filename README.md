@@ -3,7 +3,8 @@
 
 **`SHY GEEK - 28 MARCH`**
 
-```//SHY GEEK - 28 MARCH (JAVA)
+```java
+//SHY GEEK - 28 MARCH (JAVA)
 class Solution{
     static Shop shop;
     Solution(Shop shop){
