@@ -1,38 +1,43 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`DIVIDE IN INCREMENTAL GROUPS - 27 MARCH`**
+**`SHY GEEK - 28 MARCH`**
 
-```java
-//DIVIDE IN INCREMENTAL GROUPS - 27 MARCH (JAVA)
-class Solution {
-    public int calculate(int pos, int prev, int left, int K, int[][][] dp) {
-        if (pos == K) {
-            if (left == 0)
-                return 1;
-            else
-                return 0;
-        }
-        if (left == 0) return 0;
-        if (dp[pos][prev][left] != -1) return dp[pos][prev][left];
-
-        int answer = 0;
-        for (int i = prev; i <= left; i++) {
-            answer += calculate(pos + 1, i, left - i, K, dp);
-           
-        }
-
-        return dp[pos][prev][left] = answer;
+```//SHY GEEK - 28 MARCH (JAVA)
+class Solution{
+    static Shop shop;
+    Solution(Shop shop){
+        this.shop = shop;
     }
-    int countWaystoDivide(int N, int K) {
-        int dp[][][] = new int[K + 1][N + 1][N + 1];
-        for (int i = 0; i <= K; i++) {
-            for (int j = 0; j <= N; j++) {
-                Arrays.fill(dp[i][j], -1);
+    static long find(int n, long k){
+        int low = 0, high = n - 1;
+        int count = 0;
+        Map<Integer, Long> hm = new HashMap<>();
+        while(k > 0){
+            low = 0;
+            while(low <= high){
+                int mid = (low+high)/2;
+                long temp;
+                if(!hm.containsKey(mid))
+                    temp = shop.get(mid);
+                else
+                    temp = hm.get(mid);
+                
+                hm.put(mid, temp);
+                if(temp <= k)
+                    low = mid + 1;
+                else 
+                    high = mid - 1;
             }
+            if(high == -1)
+                break;
+            count += (k/hm.get(high));
+            
+            k-=(k/hm.get(high))*hm.get(high);
+            
         }
-
-        return calculate(0, 1, N, K, dp);
+        return count;
     }
-};
+
+}
 ```
