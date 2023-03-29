@@ -1,29 +1,22 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`COUNT THE SUBSTRINGS - 29 MARCH`**
+**`MINIMUM INTEGERS - 30 MARCH`**
 
 ```java
-//COUNT THE SUBSTRINGS - 29 MARCH (JAVA)
-class Solution 
-{ 
-    int countSubstring(String S) 
-    { 
-        int ans=0;
-        for(int i=0;i<S.length();i++)
-        {
-            int c=0;
-            for(int j=i;j<S.length();j++)
-            {
-                if((int)S.charAt(j)>=(int)'a'&&(int)S.charAt(j)<=(int)'z')
-                    c++;
-                else
-                    c--;
-                if(c==0)
-                    ans++;
-            }
-        }
-        return ans;
+//MINIMUM INTEGER - 30 MARCH (JAVA)
+class Solution {
+    public static int minimumInteger(int N, int[] A) {
+        int mmin = Integer.MAX_VALUE;
+        long sum = 0;
+        for(int i : A)
+            sum += i;
+        for(int X : A)
+            if(((long)X*N) >= sum && mmin > X)
+                {
+                    mmin = X;
+                }
+        return mmin;
     }
-} 
+}
 ```
