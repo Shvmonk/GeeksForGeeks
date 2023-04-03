@@ -1,25 +1,20 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`REMAINDER ON DIVIDING BY 11 - APRIL 03`**
+**`MINIMUM STEPS REQUIRED - APRIL 04`**
 
 ```java
-//REMAINDER ON DIVIDING BY 11 - APRIL 03
-class Solution 
-{ 
-    static int xmod11(String x)
-	{    
-	    int len = x.length(); 
-  
-    int num, rem = 0; 
- 
-    for (int i = 0; i < len; i++) { 
-        num = rem * 10 + (x.charAt(i) - '0'); 
-        rem = num % 11; 
-    } 
-  
-    return rem; 
-        
+//MINIMUM STEPS REQUIRED - APRIL 04
+class Solution{
+	int minSteps(String str) {
+		int cnt=1;
+        for(int i=1;i<str.length();i++){
+            if(str.charAt(i)!=str.charAt(i-1)){
+                cnt++;
+            }
+        }
+        return cnt/2 + 1;
 	}
-} 
+
+}
 ```
