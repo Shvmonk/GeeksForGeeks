@@ -1,23 +1,39 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`EQUAL LEFT AND RIGHT SUBARRAY SUM - APRIL 06`**
+**`ADD MINIMUM CHARACTERS - APRIL 07`**
 
 ```java
-// EQUAL LEFT AND RIGHT SUBARRAY SUM - APRIL 06
-class Solution{
-	int equalSum(int [] A, int N) {
-		long rem = 0, sum = 0;
-		for(int i =0 ; i < N; i++){
-		    rem+=A[i];
-		}
-		for(int i = 0; i < N; i++){
-		    if(sum == (rem-A[i]))
-		        return i+1;
-		    sum+=A[i];
-		    rem-=A[i];
-		}
-		return -1;
+//ADD MINIMUM CHARACTERS - APRIL 07
+class Solution
+{
+	public static int addMinChar(String str){
+		StringBuilder temp=new StringBuilder(str);
+		String rev=temp.reverse().toString();
+		String s=temp.reverse().append('$').append(rev).toString();
+		int n=s.length();
+		int[]lps=new int[n];
+		int i=1,len=0;
+    	while(i<n)
+    	{
+        	if(s.charAt(i)==s.charAt(len))
+        	{
+            	len++;
+            	lps[i] = len;
+            	i++;
+        	}
+        	else
+        	{
+            	if (len!=0)
+                	len=lps[len - 1];
+            	else
+            	{
+                	lps[i]=0;
+                	i++;
+            	}
+    		}
+    	}
+    	return str.length()-lps[n-1];
 	}
 }
 ```
