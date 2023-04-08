@@ -1,39 +1,28 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`ADD MINIMUM CHARACTERS - APRIL 07`**
+**`MAKE THE ARRAY BEAUTIFUL - APRIL 08`**
 
 ```java
-//ADD MINIMUM CHARACTERS - APRIL 07
-class Solution
-{
-	public static int addMinChar(String str){
-		StringBuilder temp=new StringBuilder(str);
-		String rev=temp.reverse().toString();
-		String s=temp.reverse().append('$').append(rev).toString();
-		int n=s.length();
-		int[]lps=new int[n];
-		int i=1,len=0;
-    	while(i<n)
-    	{
-        	if(s.charAt(i)==s.charAt(len))
-        	{
-            	len++;
-            	lps[i] = len;
-            	i++;
-        	}
-        	else
-        	{
-            	if (len!=0)
-                	len=lps[len - 1];
-            	else
-            	{
-                	lps[i]=0;
-                	i++;
-            	}
-    		}
-    	}
-    	return str.length()-lps[n-1];
-	}
+//MAKE THE ARRAY BEAUTIFUL - APRIL 08
+class Solution {
+    public static ArrayList<Integer> makeBeautiful(int[] arr) {
+        ArrayList<Integer> l = new ArrayList<>();
+        for (int i = 0; i < arr.length; i++) {
+            if (l.size() == 0) {
+                l.add(arr[i]);
+            } else {
+                if (check(l.get(l.size() - 1), arr[i])) {
+                    l.remove(l.size() - 1);
+                } else {
+                    l.add(arr[i]);
+                }
+            }
+        }
+        return l;
+    }
+    static boolean check(int a, int b) {
+        return ((a < 0 && b >= 0) || (a >= 0 && b < 0));
+    }
 }
 ```
