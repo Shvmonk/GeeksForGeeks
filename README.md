@@ -5,8 +5,8 @@
 
 ```java
 //SPECIAL DIGITS - APRIL 09
-class Solution{
-	static int N = (int)1e5+5;
+class Solution {
+        static int N = (int)1e5+5;
 	static int M = (int)1e9+7;
 	long binpow(long a,long b,long p){
 	    if(b == 0)
@@ -45,26 +45,37 @@ class Solution{
             init();
         }
         long ans = 0;
-        for(int i=0; i<=n; i++)
-        {
-            int sum = i*a+(n-i)*b;
-            boolean good = true;
-            while(sum>0)
-            {
-                if(sum%10!=c && sum%10!=d)
-                {
-                    good = false;
-                    break;
+        if(a==b){
+            long sum=1L*n*a;
+            while(sum>0){
+                if(sum%10==c || sum%10==d){
+                    return 1;
                 }
-                sum /= 10;
+                sum/=10;
             }
-            if(good)
+            return 0;
+        }else{
+            for(int i=0; i<=n; i++)
             {
-                ans += ncr(n,i,M);
-                ans %= M;
+                int sum = i*a+(n-i)*b;
+                boolean good = false;
+                while(sum>0)
+                {
+                    if(sum%10==c || sum%10==d)
+                    {
+                        good = true;
+                        break;
+                    }
+                    sum /= 10;
+                }
+                if(good)
+                {
+                    ans += ncr(n,i,M);
+                    ans %= M;
+                }
             }
+            return (int)ans;
         }
-        return (int)ans;
     }
 }
 ```
