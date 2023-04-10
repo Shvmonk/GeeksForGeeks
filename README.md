@@ -1,27 +1,42 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`MAXIMUM INTERSECTING LINES - APRIL 10`**
+**`MAXIMUM LENGTH - APRIL 11`**
 
 ```java
-//MAXIMUM INTERSECTING LINES - APRIL 10
+//MAXIMUM LENGTH - APRIL 11
 class Solution {
-    public int maxIntersections(int[][] lines, int N) {
-    
-        TreeMap<Integer, Integer> lineMap = new TreeMap<>();
-        for(int[] line : lines){
-            int start = line[0], end = line[1] + 1;
-            lineMap.putIfAbsent(start, 0);
-            lineMap.putIfAbsent(end, 0);
-            lineMap.put(start, lineMap.get(start) + 1);
-            lineMap.put(end, lineMap.get(end) - 1);
+
+     int solve(int a, int b, int c) {
+        char prev = '0';
+        int v[] = {a, b, c};
+
+        StringBuilder ans = new StringBuilder("");
+
+        while (true) {
+            int ma = 0;
+            char cur = ' ';
+
+            for (int i = 0; i < 3; i++)
+                if (prev != (char)(i + 'a') && ma < v[i]){
+                    ma = v[i];
+                    cur = (char)(i + 'a');
+                }
+
+            if (ma == 0)
+                break;
+
+            ans.append(String.valueOf(cur));
+            v[cur - 'a']--;
+            if (ma >= 2 && (prev == '0' || ma > v[prev - 'a'])) {
+                ans.append(String.valueOf(cur));
+                v[cur - 'a']--;
+            }
+            prev = cur;
         }
-        int res = 0, cnt = 0;
-        for(Map.Entry<Integer, Integer> entry : lineMap.entrySet()){
-            cnt += entry.getValue();
-            res = Math.max(res, cnt);
-        }
-        return res;
+        int n=ans.length();
+        if(n!=a+b+c) return -1;
+        return n;
     }
-}
+};
 ```
