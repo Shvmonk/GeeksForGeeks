@@ -1,42 +1,23 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`MAXIMUM LENGTH - APRIL 11`**
+**`DOMINANT PAIRS - APRIL 12`**
 
 ```java
-//MAXIMUM LENGTH - APRIL 11
+//DOMINANT PAIRS - APRIL 12
 class Solution {
-
-     int solve(int a, int b, int c) {
-        char prev = '0';
-        int v[] = {a, b, c};
-
-        StringBuilder ans = new StringBuilder("");
-
-        while (true) {
-            int ma = 0;
-            char cur = ' ';
-
-            for (int i = 0; i < 3; i++)
-                if (prev != (char)(i + 'a') && ma < v[i]){
-                    ma = v[i];
-                    cur = (char)(i + 'a');
-                }
-
-            if (ma == 0)
-                break;
-
-            ans.append(String.valueOf(cur));
-            v[cur - 'a']--;
-            if (ma >= 2 && (prev == '0' || ma > v[prev - 'a'])) {
-                ans.append(String.valueOf(cur));
-                v[cur - 'a']--;
+    public static int dominantPairs(int n, int[] arr) {
+        Arrays.sort(arr,0,n/2);
+        Arrays.sort(arr,n/2,n);
+        int ans=0;
+        int right=n/2;
+        for(int left=0;left<n/2;left++){
+            while(right<n && arr[left]>=5*arr[right]){
+                right++;
             }
-            prev = cur;
+            ans+=right-n/2;
         }
-        int n=ans.length();
-        if(n!=a+b+c) return -1;
-        return n;
+        return ans;
     }
-};
+}
 ```
