@@ -1,35 +1,26 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`REMOVE THE BALLS - APRIL 14`**
+**`FIND TOTAL TIME TAKEN - APRIL 15`**
 
 ```java
-//REMOVE THE BALLS
-class Solution {
-    public static int finLength(int N, int[] color, int[] radius) {
-        // code here
-        Stack<pair> st=new Stack<>();
-        for(int i=0;i<N;i++){
-            if(st.isEmpty()){
-                st.push(new pair(color[i],radius[i]));
-            }else{
-                if(st.peek().a==color[i] && st.peek().b==radius[i]){
-                    st.pop();
-                }else{
-                    st.push(new pair(color[i],radius[i]));
-                }
-            }
-        }
-        return st.size();
-    }
-    static class pair
+//FIND TOTAL TIME TAKEN - APRIL 15
+class Solution
+{
+    public static long totalTime(int n,int arr[],int time[])
     {
-        int a,b;
-        public pair(int a,int b)
-        {
-            this.a=a;
-            this.b=b;
+      int total_time = 0;
+        Set<Integer> prev_index = new HashSet<>();
+        for(int i = 0; i < n; i++) {
+            int curr_time = 1;
+            if(prev_index.contains(arr[i])) {
+                curr_time = time[arr[i]-1];
+            } else {
+                prev_index.add(arr[i]);
+            }
+            total_time += curr_time;
         }
+        return total_time-1;
     }
 }
 ```
