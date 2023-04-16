@@ -1,26 +1,36 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FIND TOTAL TIME TAKEN - APRIL 15`**
+**`UNEQUAL ARRAYS - APRIL 16`**
 
 ```java
-//FIND TOTAL TIME TAKEN - APRIL 15
-class Solution
-{
-    public static long totalTime(int n,int arr[],int time[])
-    {
-      int total_time = 0;
-        Set<Integer> prev_index = new HashSet<>();
-        for(int i = 0; i < n; i++) {
-            int curr_time = 1;
-            if(prev_index.contains(arr[i])) {
-                curr_time = time[arr[i]-1];
-            } else {
-                prev_index.add(arr[i]);
-            }
-            total_time += curr_time;
+//UNEQUAL ARRAYS - APRIL 16
+class Solution {
+    public static long solve(int N, int[] A, int[] B) {
+        long sum = 0;
+        ArrayList<Integer> AP[]=new ArrayList[2], BP[]=new ArrayList[2];
+        for(int i=0;i<2;i++){
+            AP[i]=new ArrayList<>();
+            BP[i]=new ArrayList<>();
         }
-        return total_time-1;
+        for(int i = 0; i < N; i++) {
+           sum += A[i] - B[i];
+           AP[Math.abs(A[i]) % 2].add(A[i]);
+           BP[Math.abs(B[i]) % 2].add(B[i]);
+        }
+        if(sum != 0 || (int)AP[0].size() != (int)BP[0].size())
+        return -1;
+        
+        long ans = 0;
+        for(int i = 0; i < 2; i++) {
+           Collections.sort(AP[i]);
+           Collections.sort(BP[i]);
+        
+           for(int j = 0; j < (int)AP[i].size(); j++) {
+               ans += Math.abs(AP[i].get(j) - BP[i].get(j)) / 2;
+           }
+        }
+        return ans / 2;
     }
 }
 ```
