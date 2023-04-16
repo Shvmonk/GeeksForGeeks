@@ -1,36 +1,56 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`UNEQUAL ARRAYS - APRIL 16`**
+**`JOB SEQUENCING PROBLEM - APRIL 17`**
 
 ```java
-//UNEQUAL ARRAYS - APRIL 16
-class Solution {
-    public static long solve(int N, int[] A, int[] B) {
-        long sum = 0;
-        ArrayList<Integer> AP[]=new ArrayList[2], BP[]=new ArrayList[2];
-        for(int i=0;i<2;i++){
-            AP[i]=new ArrayList<>();
-            BP[i]=new ArrayList<>();
-        }
-        for(int i = 0; i < N; i++) {
-           sum += A[i] - B[i];
-           AP[Math.abs(A[i]) % 2].add(A[i]);
-           BP[Math.abs(B[i]) % 2].add(B[i]);
-        }
-        if(sum != 0 || (int)AP[0].size() != (int)BP[0].size())
-        return -1;
-        
-        long ans = 0;
-        for(int i = 0; i < 2; i++) {
-           Collections.sort(AP[i]);
-           Collections.sort(BP[i]);
-        
-           for(int j = 0; j < (int)AP[i].size(); j++) {
-               ans += Math.abs(AP[i].get(j) - BP[i].get(j)) / 2;
-           }
-        }
-        return ans / 2;
+//JOB SEQUENCING PROBLEM - APRIL 17
+class jobComparator implements Comparator<Job> 
+{
+    public int compare(Job j1, Job j2){
+        if(j1.profit > j2.profit)return -1;
+        if(j1.profit < j2.profit)return 1;
+        return 0;
     }
+}
+
+class Solution
+{
+    int[] JobScheduling(Job arr[], int n)
+    {
+        Arrays.sort(arr, new jobComparator());
+        
+
+        int res=0, count=0;
+        int[] result = new int[n];
+        boolean[] slot = new boolean[n];
+        Arrays.fill(slot, false);
+        
+        //iterating through all given jobs.
+        for (int i=0; i<n; i++)
+        { 
+            for (int j= arr[i].deadline-1; j>=0; j--) 
+            { 
+                if (slot[j]==false)
+                { 
+			        result[j] = i; 
+			        slot[j] = true;
+			        break; 
+		        } 
+	        } 
+	    } 
+	    for (int i=0; i<n; i++)
+	    {
+	        if(slot[i]) {
+	            count++;
+	            res += arr[result[i]].profit;
+	        }
+	    }
+	    int[] ans = new int[2];
+	    ans[0] = count;
+	    ans[1] = res;
+	    return ans;
+    }
+    
 }
 ```
