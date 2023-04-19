@@ -1,38 +1,51 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`WIFI RANGE - APRIL 19`**
+**`BHEEM WANTS LADOO - APRIL 20`**
 
 ```java
-// WIFI RANGE - APRIL 19
-class Solution 
-{ 
-    boolean wifiRange(int N, String S, int X) 
-    { 
-        int A[] = new int[N];
-        Arrays.fill(A,(int)-1e9);
-        int B[] = new int[N];
-        Arrays.fill(B,(int)1e9);
-        int cur = (int)-1e9;
-        for(int i = 0; i < N; i++){
-            if(S.charAt(i) == '1'){
-                cur = i;
-            }
-            A[i] = cur;
-        }
-        cur = (int)1e9;
-        for(int i = N - 1; i >= 0; i--){
-            if(S.charAt(i) == '1'){
-                cur = i;
-            }
-            B[i] = cur;
-        }
-        for(int i = 0; i < N; i++){
-            if(Math.abs(i - A[i]) > X && Math.abs(i - B[i]) > X){
-                return false;
-            }
-        }
-        return true;
+//BHEEM WANTS LADOOS - APRIL 20
+class Solution{
+    static int sum;
+    
+    static void add_subtree(Node n, int dist){
+        if( (n==null) || (dist<0) ) return;
+        sum += n.data;
+        add_subtree(n.left, dist-1);
+        add_subtree(n.right, dist-1);
     }
-}  
+    
+    static int traverse(Node n, int target, int k){
+        if(n==null) return -1;
+        if(n.data==target)
+        {
+            add_subtree(n, k);
+            return k-1;
+        }
+        
+        int dist = traverse(n.left, target, k);
+        if(dist>-1)
+        {
+            sum += n.data;
+            add_subtree(n.right, dist-1);
+            return dist-1;
+        }
+        
+        dist = traverse(n.right, target, k);
+        if(dist>-1)
+        {
+            sum += n.data;
+            add_subtree(n.left, dist-1);
+            return dist-1;
+        }
+        
+        return -1;
+    }
+    
+    static int ladoos(Node root, int home, int k){
+        sum = 0;
+        traverse(root, home, k);
+        return sum;
+    }
+}
 ```
