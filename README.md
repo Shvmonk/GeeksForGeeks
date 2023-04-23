@@ -1,42 +1,22 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`SMALLER SUM - APRIL 22`**
+**`MINIMUM NUMBER - APRIL 23`**
 
 ```java
-//SMALLER SUM - APRIL 22
-class Solution
-{
-    public long[] smallerSum(int n,int arr[])
+//MINIMUM NUMBER - APRIL 23
+class Solution {
+    public static int minimumNumber(int n, int[] arr) {
+        int gcd=0;
+        for(int i=0;i<n;i++){
+            gcd=gcd(gcd,arr[i]);
+        }
+        return gcd;
+    }
+    public static int gcd(int a,int b)
     {
-        long ans[]=new long[n];
-        long temp[]=new long[n];
-        for(int i=0;i<n;i++){
-            temp[i]=arr[i];
-        }
-        Arrays.sort(temp);
-        long pre[]=new long[n];
-        pre[0]=temp[0];
-        for(int i=1;i<n;i++){
-            pre[i]=temp[i]+pre[i-1];
-        }
-        for(int i=0;i<n;i++){
-            if(temp[0]>=arr[i]){
-                ans[i]=0;
-                continue;
-            }
-            int l=0,r=n-1;
-            while(l<r){
-                int mid=(l+r+1)/2;
-                if(temp[mid]>=arr[i]){
-                    r=mid-1;
-                }else{
-                    l=mid;
-                }
-            }
-            ans[i]=pre[l];
-        }
-        return ans;
+        if(b==0)return a;
+        return gcd(b,a%b);
     }
 }
 ```
