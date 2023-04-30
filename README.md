@@ -1,36 +1,30 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`POWERFUL INTEGER - APRIL 30`**
+**`SUBTREE IN N-ARY TREE - MAY 01`**
 
 ```java
-//POWERFUL INTEGER - APRIL 30
+//SUBTREE IN N-ARY TREE - MAY 01
 class Solution{
-    public static int powerfullInteger(int n,int interval[][],int k)
-    {
-        TreeMap<Integer,Integer> tm=new TreeMap<>();
-        for(int i=0;i<n;i++){
-            tm.put(interval[i][0],tm.getOrDefault(interval[i][0],0)+1);
-            tm.put(interval[i][1]+1,tm.getOrDefault(interval[i][1]+1,0)-1);
+    public int duplicateSubtreeNaryTree(Node root){
+        int count = 0;
+        hm = new HashMap<>();
+        dfs(root);
+        for(Map.Entry<String, Integer> e : hm.entrySet()){
+            if(e.getValue() > 1)
+                count++;
         }
-        int temp=0;
-        int ans=0;
-        for(Map.Entry<Integer,Integer> e:tm.entrySet()){
-            int key=e.getKey();
-            int value=e.getValue();
-            if(value>=0){
-                temp+=value;
-                if(temp>=k){
-                    ans=key;
-                }
-            }else if(value<0){
-                if(temp>=k){
-                    ans=key-1;
-                }
-                temp+=value;
-            }
-        }
-        return (ans==0?-1:ans);
+        return count;
     }
+    static String dfs(Node node){
+        StringBuilder sb = new StringBuilder(node.data + "#");
+        for(Node child : node.children){
+            sb.append(dfs(child));
+        }
+        String s = sb.toString();
+        hm.put(s, hm.getOrDefault(s, 0) + 1);
+        return s;
+    }
+    static Map<String, Integer> hm;
 }
 ```
