@@ -1,7 +1,7 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FIND NUMBER - APRIL 29`**
+**`POWERFUL INTEGER - APRIL 30`**
 
 ```java
 //POWERFUL INTEGER - APRIL 30
