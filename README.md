@@ -1,30 +1,49 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`SUBTREE IN N-ARY TREE - MAY 01`**
+**`CAKE DISTRIBUTION PROBLEM - MAY 02`**
 
 ```java
-//SUBTREE IN N-ARY TREE - MAY 01
+//CAKE DISTRIBUTION PROBLEM - MAY 02
 class Solution{
-    public int duplicateSubtreeNaryTree(Node root){
-        int count = 0;
-        hm = new HashMap<>();
-        dfs(root);
-        for(Map.Entry<String, Integer> e : hm.entrySet()){
-            if(e.getValue() > 1)
-                count++;
-        }
-        return count;
-    }
-    static String dfs(Node node){
-        StringBuilder sb = new StringBuilder(node.data + "#");
-        for(Node child : node.children){
-            sb.append(dfs(child));
-        }
-        String s = sb.toString();
-        hm.put(s, hm.getOrDefault(s, 0) + 1);
-        return s;
-    }
-    static Map<String, Integer> hm;
+	boolean canSplit(int [] sweetness, int mn_value, int k) {
+	    int curr = 0;
+	    int cnt = 0;
+	    
+	    for (int i = 0; i < sweetness.length; i++) {
+	        curr += sweetness[i];
+	        if (curr >= mn_value) {
+	            cnt++;
+	            curr = 0;
+	        }
+	    }
+	    return cnt >= k + 1;
+	}
+	int maxSweetness(int [] sweetness, int n, int k) {
+	    int sum = 0;
+	    int mn_value = Integer.MAX_VALUE;
+	    for (int i = 0; i < n; i++) {
+	        sum += sweetness[i];
+	        mn_value = Math.min(mn_value, sweetness[i]);
+	    }
+	    
+	    int low = 1;
+	    int high = sum;
+	    int ans = 0;
+	    
+	    while (low <= high) {
+	        int mid = (low + high) / 2;
+	        if (canSplit(sweetness, mid, k)) {
+	            ans = mid;
+	            low = mid + 1;
+	        } else {
+	            high = mid - 1;
+	        }
+	    }
+	    
+	    return ans;
+	}
+
+
 }
 ```
