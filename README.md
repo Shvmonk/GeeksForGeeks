@@ -1,63 +1,49 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`MAKE PALINDROME - MAY 03`**
+**`MAX COINS - MAY 04`**
 
 ```java
-//MAKE PALINDROME - MAY 03
-class Solution {
-    public static boolean makePalindrome(int n, String[] arr) {
-        HashMap<String,Integer> hm=new HashMap<>();
-        HashMap<String,Integer> temp=new HashMap<>();
-        for(String i:arr){
-            hm.put(i,hm.getOrDefault(i,0)+1);
-        }
-        int q=0;
-        for(String st:hm.keySet()){
-            int x=hm.get(st);
-            if(palindrome(st)){
-                temp.put(st,hm.get(st));
-                continue;
-            }
-            StringBuilder sb=new StringBuilder();
-            sb.append(st);
-            sb.reverse();
-            int y=hm.getOrDefault(sb.toString(),0);
-            
-            if(y!=0 && x!=y){
-                q=1;
-                break;
-            }
-            if(y==0){
-                q=1;
-                break;
-            }
-        }
-        if(q==1){
-            return false;
-        }
-        int odd=0;
-        for(int i:temp.values()){
-            if(i%2==1){
-                odd++;
-            }
-        }
-        if(odd>1){
-            return false;
-        }
-        return true;
-    }
-    public static boolean palindrome(String s)
+//MAX COINS - MAY 04
+class Solution{
+    static int dp[][];
+    public static int maxCoins(int n,int ranges[][])
     {
-        int i=0,j=s.length()-1;
-        while(i<j){
-            if(s.charAt(i)!=s.charAt(j)){
-                return false;
+        Arrays.sort(ranges,new Comparator<int[]>(){
+            public int compare(int first[],int second[]){
+                if(first[0]==second[0])
+                return first[1]-second[1];
+                else
+                return first[0]-second[0];
             }
-            i++;
-            j--;
+        });
+        dp=new int[n+1][3];
+        for(int i=0;i<n+1;i++){
+            Arrays.fill(dp[i],-1);
         }
-        return true;
+        return fun(ranges,0,0);
+    }
+    public static int fun(int ranges[][],int i,int taken)
+    {
+        
+        if(i>=ranges.length || taken>1) return 0;
+        if(dp[i][taken]!=-1){
+            return dp[i][taken];
+        }
+        int ans=fun(ranges,i+1,taken);
+        int new_idx=(int)(1e9),l=i+1,r=ranges.length-1;
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(ranges[mid][0]>=ranges[i][1]){
+                new_idx=mid;
+                r=mid-1;
+            }
+            else{
+                l=mid+1;
+            }
+        }
+        ans=Math.max(ans,fun(ranges,new_idx,taken+1)+ranges[i][2]);
+        return dp[i][taken]=ans;
     }
 }
 ```
