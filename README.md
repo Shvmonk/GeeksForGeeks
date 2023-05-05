@@ -1,36 +1,23 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`GOOD SUBTREES - MAY 05`**
+**`ANOTHER COIN CHANGE PROBLEM - MAY 06`**
 
 ```java
-//GOOD SUBTREES - MAY 05
-class Solution
-{
-    static int ans;
-    public static int goodSubtrees(Node root,int k)
-    {
-        ans=0;
-        fun(root,k);
-        return ans;
-    }
-    public static HashSet<Integer> fun(Node root,int k)
-    {
-        if(root==null)return new HashSet<>();
-        var hs1=fun(root.left,k);
-        var hs2=fun(root.right,k);
-        HashSet<Integer> hs=new HashSet<>();
-        for(int i:hs1){
-            hs.add(i);
+//ANOTHER COIN CHANGE PROBLEM - MAY 06
+class Solution {
+    public static boolean makeChanges(int N, int K, int target, int[] coins) {
+        boolean[][] dp = new boolean[K + 1][target + 1];
+        dp[0][0] = true;
+        for (int i = 1; i < K + 1; i++) {
+            for (int j = 1; j < target + 1; j++) {
+                for (int l : coins) {
+                    if (j < l) continue;
+                    dp[i][j] |= dp[i - 1][j - l];
+                }
+            }
         }
-        for(int i:hs2){
-            hs.add(i);
-        }
-        hs.add(root.data);
-        if(hs.size()<=k){
-            ans++;
-        }
-        return hs;
+        return dp[K][target];
     }
 }
 ```
