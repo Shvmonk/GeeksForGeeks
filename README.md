@@ -1,23 +1,44 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`ANOTHER COIN CHANGE PROBLEM - MAY 06`**
+**`STRING MIRROR - MAY 07`**
 
 ```java
-//ANOTHER COIN CHANGE PROBLEM - MAY 06
+//STRING MIRROR - MAY 07
 class Solution {
-    public static boolean makeChanges(int N, int K, int target, int[] coins) {
-        boolean[][] dp = new boolean[K + 1][target + 1];
-        dp[0][0] = true;
-        for (int i = 1; i < K + 1; i++) {
-            for (int j = 1; j < target + 1; j++) {
-                for (int l : coins) {
-                    if (j < l) continue;
-                    dp[i][j] |= dp[i - 1][j - l];
-                }
+    public static String stringMirror(String str) {
+        // code here
+        char last=str.charAt(0);
+        StringBuilder tmp=new StringBuilder(),ans1=new StringBuilder(),ans2=new StringBuilder();
+        tmp.append(str.charAt(0));
+        for(int i=1;i<str.length();i++){
+            if(str.charAt(i)<last){
+                last=str.charAt(i);
+                tmp.append(last);
             }
+            else break;
         }
-        return dp[K][target];
+        ans1.append(tmp);
+        tmp.reverse();
+        ans1.append(tmp);
+        tmp=new StringBuilder();
+        tmp.append(str.charAt(0));
+        last=str.charAt(0);
+        for(int i=1;i<str.length();i++){
+            if(str.charAt(i)<=last){
+                last=str.charAt(i);
+                tmp.append(last);
+            }
+            else break;
+        }
+        ans2.append(tmp);
+        tmp.reverse();
+        ans2.append(tmp);
+        if(ans1.toString().compareTo(ans2.toString())<=0){
+            return ans1.toString();
+        }else{
+            return ans2.toString();
+        }
     }
 }
 ```
