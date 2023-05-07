@@ -1,44 +1,38 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`STRING MIRROR - MAY 07`**
+**`BINARY MODULO - MAY 08`**
 
 ```java
-//STRING MIRROR - MAY 07
-class Solution {
-    public static String stringMirror(String str) {
-        // code here
-        char last=str.charAt(0);
-        StringBuilder tmp=new StringBuilder(),ans1=new StringBuilder(),ans2=new StringBuilder();
-        tmp.append(str.charAt(0));
-        for(int i=1;i<str.length();i++){
-            if(str.charAt(i)<last){
-                last=str.charAt(i);
-                tmp.append(last);
-            }
-            else break;
+//BINARY MODULO - MAY 08
+class Solution{
+	String reverse(String s) {
+		char[] temparray = s.toCharArray();
+		int left, right = 0;
+        right = temparray.length - 1;
+        for (left = 0; left < right; left++, right--) {
+            char temp = temparray[left];
+            temparray[left] = temparray[right];
+            temparray[right] = temp;
         }
-        ans1.append(tmp);
-        tmp.reverse();
-        ans1.append(tmp);
-        tmp=new StringBuilder();
-        tmp.append(str.charAt(0));
-        last=str.charAt(0);
-        for(int i=1;i<str.length();i++){
-            if(str.charAt(i)<=last){
-                last=str.charAt(i);
-                tmp.append(last);
-            }
-            else break;
+        String str = new String(temparray);
+        return str;
+	}
+	int modulo(String s, int m) {
+		int n=s.length();
+        int [] p = new int[n];
+        p[0] = 1;
+        for(int i=1;i<n;i++)
+            p[i] = (p[i-1] % m * 2 % m) % m;
+        int ans=0;
+        s = reverse(s);
+        for(int i=0;i<n;i++)
+        {
+            int c= s.charAt(i)-'0';
+            c=(c % m * p[i] % m) % m;
+            ans = (ans % m + c % m) % m;
         }
-        ans2.append(tmp);
-        tmp.reverse();
-        ans2.append(tmp);
-        if(ans1.toString().compareTo(ans2.toString())<=0){
-            return ans1.toString();
-        }else{
-            return ans2.toString();
-        }
-    }
+        return ans;
+	}
 }
 ```
