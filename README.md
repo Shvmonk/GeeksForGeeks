@@ -1,38 +1,46 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`BINARY MODULO - MAY 08`**
+**`COUNT BINARY STRINGS WITH NO CONSECUTIVE 1S- MAY 09`**
 
 ```java
-//BINARY MODULO - MAY 08
-class Solution{
-	String reverse(String s) {
-		char[] temparray = s.toCharArray();
-		int left, right = 0;
-        right = temparray.length - 1;
-        for (left = 0; left < right; left++, right--) {
-            char temp = temparray[left];
-            temparray[left] = temparray[right];
-            temparray[right] = temp;
+//COUNT BINARY STRINGS WITH NO CONSECUTIVE 1S- MAY 09
+class Solution {
+    public int mod = 1000000007;
+    public void multiply(int[][] a, int[][] b) {
+        int mul[][] = new int[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
+                    long temp = ((long)a[i][k] * b[k][j]) % mod;
+                    mul[i][j] += temp;
+                    mul[i][j] %= mod;
+                }
+            }
         }
-        String str = new String(temparray);
-        return str;
-	}
-	int modulo(String s, int m) {
-		int n=s.length();
-        int [] p = new int[n];
-        p[0] = 1;
-        for(int i=1;i<n;i++)
-            p[i] = (p[i-1] % m * 2 % m) % m;
-        int ans=0;
-        s = reverse(s);
-        for(int i=0;i<n;i++)
-        {
-            int c= s.charAt(i)-'0';
-            c=(c % m * p[i] % m) % m;
-            ans = (ans % m + c % m) % m;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                a[i][j] = mul[i][j];
+            }
         }
-        return ans;
-	}
+    }
+    public int power(int[][] mat, long N) {
+        int M[][] = {{1, 1, 0}, {1, 0, 0}, {0, 1, 0}};
+        if (N == 1) {
+            return (mat[0][0] + mat[0][1]) % mod;
+        }
+        power(mat, N / 2);
+        multiply(mat, mat);
+        if (N % 2 != 0) {
+            multiply(mat, M);
+        }
+        return (mat[0][0] + mat[0][1]) % mod;
+    }
+    int countStrings(long N) {
+        int[][] mat = {{1, 1, 0}, {1, 0, 0}, {0, 1, 0}};
+        if (N == 2) return 3;
+        if (N == 1) return 2;
+        return power(mat, N);
+    }
 }
 ```
