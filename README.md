@@ -1,46 +1,31 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`COUNT BINARY STRINGS WITH NO CONSECUTIVE 1S- MAY 09`**
+**`TOTAL CUTS - MAY 10`**
 
 ```java
-//COUNT BINARY STRINGS WITH NO CONSECUTIVE 1S- MAY 09
-class Solution {
-    public int mod = 1000000007;
-    public void multiply(int[][] a, int[][] b) {
-        int mul[][] = new int[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    long temp = ((long)a[i][k] * b[k][j]) % mod;
-                    mul[i][j] += temp;
-                    mul[i][j] %= mod;
-                }
+//TOTAL CUTS- MAY 10
+class Solution
+{
+    public static int totalCuts(int N,int K,int A[])
+    {
+        int small[]=new int[N];
+        int large[]=new int[N];
+        large[0]=A[0];
+        for(int i=1;i<N;i++){
+            large[i]=Math.max(large[i-1],A[i]);
+        }
+        small[N-1]=A[N-1];
+        for(int i=N-2;i>=0;i--){
+            small[i]=Math.min(small[i+1],A[i]);
+        }
+        int ans=0;
+        for(int i=0;i<N-1;i++){
+            if(large[i]+small[i+1]>=K){
+                ans++;
             }
         }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                a[i][j] = mul[i][j];
-            }
-        }
-    }
-    public int power(int[][] mat, long N) {
-        int M[][] = {{1, 1, 0}, {1, 0, 0}, {0, 1, 0}};
-        if (N == 1) {
-            return (mat[0][0] + mat[0][1]) % mod;
-        }
-        power(mat, N / 2);
-        multiply(mat, mat);
-        if (N % 2 != 0) {
-            multiply(mat, M);
-        }
-        return (mat[0][0] + mat[0][1]) % mod;
-    }
-    int countStrings(long N) {
-        int[][] mat = {{1, 1, 0}, {1, 0, 0}, {0, 1, 0}};
-        if (N == 2) return 3;
-        if (N == 1) return 2;
-        return power(mat, N);
+        return ans;
     }
 }
 ```
