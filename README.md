@@ -4,7 +4,7 @@
 **`PALINDROME WITH MINIMUM SUM  - MAY 11`**
 
 ```java
-//PALINDROME WITH MINIMUM SUM - MAY 10
+//PALINDROME WITH MINIMUM SUM - MAY 11
 class Solution {
     public static int minimumSum(String s) {
         // code here
