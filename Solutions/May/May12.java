@@ -1,10 +1,13 @@
-// ARRAY OPERATIONS - MAY 12
+//ARRAY OPERATIONS - MAY 12
 class Solution {
     public static int arrayOperations(int n, int[] arr) {
+    
         int count=0,zero=0;
-        boolean isNonZero=false;
+        boolean isNonZero=false,isZeroFound=false;
+        
         for(int i=0;i<n;i++){
             if(arr[i]==0){
+                isZeroFound = true;
                 zero++;
                 if(isNonZero){
                     count++;
@@ -14,10 +17,12 @@ class Solution {
                 isNonZero=true;
             }
         }
-        if(isNonZero){
+        if(isNonZero && isZeroFound){
             count++;
         }
+        
         if(zero==n) return 0;
+        
         return count>0?count:-1;
     }
 }
