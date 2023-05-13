@@ -1,35 +1,19 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`ARRAY OPERATIONS - MAY 12`**
+**`BIT MAGIC - MAY 13`**
 
 ```java
-//ARRAY OPERATIONS - MAY 12
+//BIT MAGIC - MAY 13
 class Solution {
-    public static int arrayOperations(int n, int[] arr) {
-    
-        int count=0,zero=0;
-        boolean isNonZero=false,isZeroFound=false;
-        
-        for(int i=0;i<n;i++){
-            if(arr[i]==0){
-                isZeroFound = true;
-                zero++;
-                if(isNonZero){
-                    count++;
-                    isNonZero=false;
-                }
-            }else{
-                isNonZero=true;
+    public static int bitMagic(int n, int[] arr) {
+        int c=0;
+        for(int i=0;i<n/2;i++){
+            if(arr[i]!=arr[n-i-1]){
+                c++;
             }
         }
-        if(isNonZero && isZeroFound){
-            count++;
-        }
-        
-        if(zero==n) return 0;
-        
-        return count>0?count:-1;
+        return (c+1)/2;
     }
 }
 ```
