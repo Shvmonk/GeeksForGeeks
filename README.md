@@ -1,19 +1,22 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`BIT MAGIC - MAY 13`**
+**`MAXIMUM SUBSET SUM - MAY 14`**
 
 ```java
-//BIT MAGIC - MAY 13
+//MAXIMUM SUBSET SUM - MAY 14
 class Solution {
-    public static int bitMagic(int n, int[] arr) {
-        int c=0;
-        for(int i=0;i<n/2;i++){
-            if(arr[i]!=arr[n-i-1]){
-                c++;
-            }
+    public long findMaxSubsetSum(int N, int[] A)
+    {
+        long[][] dp = new long[N+1][2];
+        dp[0][0] = 0;
+        dp[0][1] = 0;
+        for (int i = 1; i <= N; i++) 
+        {
+            dp[i][0] = dp[i-1][1];
+            dp[i][1] = Math.max(dp[i-1][0] + A[i-1], dp[i-1][1] + A[i-1]);
         }
-        return (c+1)/2;
+        return Math.max(dp[N][0], dp[N][1]);
     }
 }
 ```
