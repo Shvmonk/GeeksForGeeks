@@ -1,22 +1,21 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`MAXIMUM SUBSET SUM - MAY 14`**
+**`COUNT TOTAL SETBITS - MAY 15 `**
 
 ```java
-//MAXIMUM SUBSET SUM - MAY 14
+//COUNT TOTAL SETBITS - MAY 15 
 class Solution {
-    public long findMaxSubsetSum(int N, int[] A)
-    {
-        long[][] dp = new long[N+1][2];
-        dp[0][0] = 0;
-        dp[0][1] = 0;
-        for (int i = 1; i <= N; i++) 
-        {
-            dp[i][0] = dp[i-1][1];
-            dp[i][1] = Math.max(dp[i-1][0] + A[i-1], dp[i-1][1] + A[i-1]);
+    public static long countBits(long N) {
+        long count = 0;
+        for (int i = 0; i < 31; i++) {
+            int x = 1 << i;
+            long y = (N + 1) / (x * 2) * x;
+            long z = (N + 1) % (x * 2) - x;
+            count += y + Math.max(z, 0);
         }
-        return Math.max(dp[N][0], dp[N][1]);
+        return count;
+
     }
 }
 ```
