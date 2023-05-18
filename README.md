@@ -1,46 +1,59 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`TRACE PATH - MAY 17`**
+**`FIND NUMBER OF CLOSED ISLANDS - MAY 18`**
 
 ```java
-//TRACE PATH - MAY 17
-class Solution{
-    static int max(int x, int y){
-        if(x >= y)
-            return x;
-        return y;
-    }
-    
-    static int min(int x, int y){
-        if(x < y)
-            return x;
-        return y;
-    }
-    
-    static int isPossible(int n, int m, String s){
-        int maxl = 0, maxr = 0, maxu = 0, maxd = 0, c1 = 0, c2 = 0;
-        for(int i = 0;i < s.length();i++){
-            if(s.charAt(i) == 'L')
-                c1--;
-            else if(s.charAt(i) == 'R')
-                c1++;
-            else if(s.charAt(i) == 'U')
-                c2++;
-            else
-                c2--;
-            if(c1 >= 0)
-                maxr = max(c1, maxr);
-            else
-                maxl = min(c1, maxl);
-            if(c2 >= 0)
-                maxu = max(c2, maxu);
-            else
-                maxd = min(c2, maxd);
+//FIND NUMBER OF CLOSED ISLANDS - MAY 18
+class Solution
+{
+    static void dfs(int[][] matrix, boolean[][] visited,
+                    int x, int y, int n, int m,
+                    boolean[] hasCornerCell)
+    {
+        if (x < 0 || y < 0 || x >= n || y >= m ||
+            visited[x][y] == true || matrix[x][y] == 0)
+            return;
+     
+        if (x == 0 || y == 0 ||
+            x == n - 1 || y == m - 1)
+        {
+            if (matrix[x][y] == 1)
+                hasCornerCell[0] = true;
         }
-        if(maxr + 1 - maxl <= m && maxu + 1 - maxd <= n)
-            return 1;
-        return 0;    
+        visited[x][y] = true;
+        dfs(matrix, visited, x + 1, y, n, m,
+            hasCornerCell);
+        dfs(matrix, visited, x, y + 1, n, m,
+            hasCornerCell);
+        dfs(matrix, visited, x - 1, y, n, m,
+            hasCornerCell);
+        dfs(matrix, visited, x, y - 1, n, m,
+            hasCornerCell);
+    }
+    public int closedIslands(int[][] matrix, int n, int m)
+    {
+        boolean[][] visited = new boolean[n][m];
+        int result = 0;
+        for(int i = 0; i < n; ++i)
+        {
+            for(int j = 0; j < m; ++j)
+            {
+                if ((i != 0 && j != 0 &&
+                     i != n - 1 && j != m - 1) &&
+                     matrix[i][j] == 1 &&
+                     visited[i][j] == false)
+                {
+                    boolean[] hasCornerCell = new boolean[1];
+                    hasCornerCell[0] = false;
+                    dfs(matrix, visited, i, j, n, m,
+                        hasCornerCell);
+                    if (!hasCornerCell[0])
+                        result = result + 1;
+                }
+            }
+        }
+        return result;
     }
 }
 ```
