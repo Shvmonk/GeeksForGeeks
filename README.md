@@ -4,56 +4,89 @@
 **`FIND NUMBER OF CLOSED ISLANDS - MAY 18`**
 
 ```java
-//FIND NUMBER OF CLOSED ISLANDS - MAY 18
-class Solution
-{
-    static void dfs(int[][] matrix, boolean[][] visited,
-                    int x, int y, int n, int m,
-                    boolean[] hasCornerCell)
-    {
-        if (x < 0 || y < 0 || x >= n || y >= m ||
-            visited[x][y] == true || matrix[x][y] == 0)
-            return;
-     
-        if (x == 0 || y == 0 ||
-            x == n - 1 || y == m - 1)
-        {
-            if (matrix[x][y] == 1)
-                hasCornerCell[0] = true;
+//FIND K-TH SMALLEST ELEMENT IN GIVEN N RANGES- MAY 19
+class Solution {
+    public static ArrayList<Integer> kthSmallestNum(int n, int[][] range, int q, int[] queries) {
+        ArrayList<pair> A=new ArrayList<>();
+        for(int i=0;i<range.length;i++){
+            A.add(new pair(range[i][0],range[i][1]));
         }
-        visited[x][y] = true;
-        dfs(matrix, visited, x + 1, y, n, m,
-            hasCornerCell);
-        dfs(matrix, visited, x, y + 1, n, m,
-            hasCornerCell);
-        dfs(matrix, visited, x - 1, y, n, m,
-            hasCornerCell);
-        dfs(matrix, visited, x, y - 1, n, m,
-            hasCornerCell);
+        Collections.sort(A,new myComp());
+        ArrayList<pair> merged=mergeIntervals(A);
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i = 0 ; i < queries.length; i++){
+            int res = find_kth(merged, queries[i]);
+            ans.add(res);
+        }
+        return ans;
     }
-    public int closedIslands(int[][] matrix, int n, int m)
-    {
-        boolean[][] visited = new boolean[n][m];
-        int result = 0;
-        for(int i = 0; i < n; ++i)
+    
+    public static int find_kth(ArrayList<pair> merged, int k){
+        int n = merged.size();
+        int to_return=-1;
+        for (int j = 0; j < n; j++)
         {
-            for(int j = 0; j < m; ++j)
-            {
-                if ((i != 0 && j != 0 &&
-                     i != n - 1 && j != m - 1) &&
-                     matrix[i][j] == 1 &&
-                     visited[i][j] == false)
-                {
-                    boolean[] hasCornerCell = new boolean[1];
-                    hasCornerCell[0] = false;
-                    dfs(matrix, visited, i, j, n, m,
-                        hasCornerCell);
-                    if (!hasCornerCell[0])
-                        result = result + 1;
-                }
+            if (k <= Math.abs(merged.get(j).b -merged.get(j).a + 1)){
+                to_return = (merged.get(j).a + k - 1);
+                break;
             }
+ 
+            k = k - Math.abs(merged.get(j).b - merged.get(j).a + 1);
         }
-        return result;
+        return to_return;
     }
+    
+	public static class pair
+    {
+    	int a;
+    	int b;
+    	public pair(int a,int b)
+    	{
+    	    this.a=a;
+    	    this.b=b;
+    	}
+    }
+    public static class myComp implements Comparator<pair>
+    {
+    	public int compare(pair p1,pair p2)
+    	{
+    	    if(p1.a==p2.a)
+    	    return 0;
+    	    else if(p1.a<p2.a)
+    	    return -1;
+    	    else
+    	    return 1;
+    	}
+    }
+    public static ArrayList<pair> mergeIntervals(ArrayList<pair> arr)
+	{
+	    ArrayList<pair> a1=new ArrayList<>();
+	    if(arr.size()<=1)
+	    return arr;
+	    a1.add(arr.get(0));
+	    int i=1,j=0;
+	    while(i<arr.size())
+	    {
+	        if(a1.get(j).b<arr.get(i).a)
+	        {
+	           a1.add(arr.get(i));
+	           i++;
+	           j++;
+	        }
+	        else if(a1.get(j).b>arr.get(i).a && a1.get(j).b>=arr.get(i).b)
+	        {
+	            i++;
+	        }
+	        else if(a1.get(j).b>=arr.get(i).a)
+	        {
+	            int a=a1.get(j).a;
+	            int b=arr.get(i).b;
+	            a1.remove(j);
+	            a1.add(new pair(a,b));
+	            i++;
+	        }
+	    }
+	    return a1;
+	}
 }
 ```
