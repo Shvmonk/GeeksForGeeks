@@ -1,34 +1,19 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`HANDS OF STRAIGHTS - MAY 20`**
+**`BUS CONDUCTOR - MAY 21`**
 
 ```java
-//HANDS OF STRAIGHTS - MAY 20
+//BUS CONDUCTOR - MAY 21
 class Solution {
-    static boolean isStraightHand(int N, int W, int hand[]) {
-        int len = hand.length;
-        if (len % W != 0) return false;
-        TreeMap<Integer, Integer> treeMap = new TreeMap<>();
-        for (int num : hand) {
-            treeMap.put(num, treeMap.getOrDefault(num, 0) + 1);
+    public static int findMoves(int n, int[] chairs, int[] passengers) {
+        Arrays.sort(chairs);
+        Arrays.sort(passengers);
+        int ans=0;
+        for(int i=0;i<n;i++){
+            ans+=Math.abs(chairs[i]-passengers[i]);
         }
-
-        while (!treeMap.isEmpty()) {
-            int first = treeMap.firstKey();
-            for (int j = 1; j < W; j++) {
-                int next = first + j;
-                if (treeMap.containsKey(next)) {
-                    treeMap.put(next, treeMap.get(next) - 1);
-                    if (treeMap.get(next) == 0) treeMap.remove(next);
-                } else {
-                    return false;
-                }
-            }
-            treeMap.put(first, treeMap.get(first) - 1);
-            if (treeMap.get(first) == 0) treeMap.remove(first);
-        }
-        return true;
+        return ans;
     }
 }
 ```
