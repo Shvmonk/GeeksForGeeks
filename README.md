@@ -1,19 +1,23 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`BUS CONDUCTOR - MAY 21`**
+**`TREE TRANSFORMATION - MAY 22`**
 
 ```java
-//BUS CONDUCTOR - MAY 21
-class Solution {
-    public static int findMoves(int n, int[] chairs, int[] passengers) {
-        Arrays.sort(chairs);
-        Arrays.sort(passengers);
-        int ans=0;
-        for(int i=0;i<n;i++){
-            ans+=Math.abs(chairs[i]-passengers[i]);
+//TREE TRANSFORMATION - MAY 22
+class Solution{
+    public static int solve(int N, int[] p) {
+        int [] g = new int[N + 1];
+        for (int i = 1; i < N; i++) {
+            g[p[i]]++;
+            g[i]++;
         }
-        return ans;
+        int cnt = 0;
+        for (int i = 0; i < N; i++) {
+            if (g[i] == 1)
+                cnt++;
+        }
+        return Math.max(N - cnt - 1, 0);
     }
 }
 ```
