@@ -1,23 +1,44 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`TREE TRANSFORMATION - MAY 22`**
+**`CONSTRUCT A FULL BINARY TREE - MAY 23`**
 
 ```java
-//TREE TRANSFORMATION - MAY 22
-class Solution{
-    public static int solve(int N, int[] p) {
-        int [] g = new int[N + 1];
-        for (int i = 1; i < N; i++) {
-            g[p[i]]++;
-            g[i]++;
-        }
-        int cnt = 0;
-        for (int i = 0; i < N; i++) {
-            if (g[i] == 1)
-                cnt++;
-        }
-        return Math.max(N - cnt - 1, 0);
+//CONSTRUCT A FULL BINARY TREE - MAY 23
+class Solution
+{
+    class gfg
+    {
+       
+            int preIndex = 0;
+        
+    }
+    
+    public Node constructBTree(int pre[], int preM[], int size)
+    {
+        gfg r = new gfg();
+        Node root = constructBTreeUtil(pre, preM, r, 0, size-1, size);
+        
+        return root;
+    }
+    
+    public  Node constructBTreeUtil(int pre[], int preM[], gfg r, int l, int h, int size)
+    {
+        if (r.preIndex >= size || l > h)
+		return null;
+    	Node root = new Node(pre[r.preIndex]);
+    	++(r.preIndex);
+    	if (l == h)	return root;
+    	int i;
+    	for (i = l; i <= h; ++i)
+    	if (pre[r.preIndex] == preM[i])
+    	    break;
+    	if (i <= h)
+    	{
+    		root.left = constructBTreeUtil (pre, preM, r, i, h, size);
+    		root.right = constructBTreeUtil (pre, preM, r, l+1, i-1, size);
+    	}
+	    return root; 
     }
 }
 ```
