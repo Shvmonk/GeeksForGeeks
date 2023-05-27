@@ -4,23 +4,46 @@
 **`EXPRESS AS SUM OF POWER OF NATURAL NUMBER - MAY 26`**
 
 ```java
-//EXPRESS AS SUM OF POWER OF NATURAL NUMBER - MAY 26
+//MODIFY LINKED LIST 1 - MAY 27
 class Solution
 {
-    static int numOfWays(int n,int x)
+    public static Node modifyTheList(Node head)
     {
-        int dp[]=new int[n+1];
-        dp[0]=1;
-        int mod=1000000007;
-        for(int i=1;i<=n;i++){
-            for(int j=n;j>=i;j--){
-                int y=(int)Math.pow(i,x);
-                if(j>=y){
-                    dp[j]=(dp[j]+dp[j-y])%mod;
-                }
-            }
+        if(head.next==null)
+        return head;
+        Node slow=head,fast=head,mid;
+        while(fast.next!=null && fast.next.next!=null)
+        {
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        return dp[n];
+        mid=slow;
+        Node reversedList=mid.next;
+        mid.next=null;
+        reversedList=reverse(reversedList);
+        Node temp2=reversedList,temp=head;
+        while(temp2!=null)
+        {
+            int x=temp.data;
+            temp.data=temp2.data-x;
+            temp2.data=x;
+            temp=temp.next;
+            temp2=temp2.next;
+        }
+        mid.next=reverse(reversedList);
+        return head;
+    }
+    public static Node reverse(Node head)
+    {
+        Node prev=null;
+        while(head!=null)
+        {
+            Node nxt=head.next;
+            head.next=prev;
+            prev=head;
+            head=nxt;
+        }
+        return prev;
     }
 }
 ```
