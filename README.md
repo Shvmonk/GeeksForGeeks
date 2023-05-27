@@ -1,7 +1,7 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`EXPRESS AS SUM OF POWER OF NATURAL NUMBER - MAY 26`**
+**`MODIFY LINKED LIST 1 - MAY 27`**
 
 ```java
 //MODIFY LINKED LIST 1 - MAY 27
