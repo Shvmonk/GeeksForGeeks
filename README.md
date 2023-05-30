@@ -1,41 +1,27 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`WORD SEARCH - MAY 30`**
+**`FREQUENCY GAME - MAY 31`**
 
 ```java
-//WORD SEARCH - MAY 30
-class Solution
-{
-    boolean adjacentSearch(char[][] board, String word, int i, int j, int len)
-    {
-        if(len == word.length())
-            return true;
-        if(i < 0 || j < 0 || i >= board.length || j >= board[0].length)
-            return false;
-        if(board[i][j] != word.charAt(len))
-            return false;
-        board[i][j] = '*';
-        boolean ans = 
-            adjacentSearch(board, word, i-1, j, len+1) || 
-            adjacentSearch(board, word, i+1, j, len+1) || 
-            adjacentSearch(board, word, i, j-1, len+1) || 
-            adjacentSearch(board, word, i, j+1, len+1);   
-        board[i][j] = word.charAt(len);
-        return ans;
-    }
-    
-    public boolean isWordExist(char[][] board, String word)
-    {
-        for(int i = 0; i < board.length; i++)
-        {
-            for(int j = 0; j < board[0].length; j++)
-            {
-                if(board[i][j] == word.charAt(0) && adjacentSearch(board, word, i, j, 0))
-                    return true;
+//FREQUENCY GAME - MAY 31
+class Solution {
+    public static int LargButMinFreq(int arr[], int n) {
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        for(int i:arr){
+            hm.put(i,hm.getOrDefault(i,0)+1);
+        }
+        int freq=Integer.MAX_VALUE;
+        for(int i:hm.values()){
+            freq=Math.min(freq,i);
+        }
+        int ans=0;
+        for(Map.Entry<Integer,Integer> e:hm.entrySet()){
+            if(e.getValue()==freq){
+                ans=Math.max(ans,e.getKey());
             }
         }
-        return false;
+        return ans;
     }
 }
 ```
