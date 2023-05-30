@@ -1,62 +1,41 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`CAMELCASE PATTERN MATCHING - MAY 29`**
+**`WORD SEARCH - MAY 30`**
 
 ```java
-//CAMELCASE PATTERN MATCHING  - MAY 29
-class Solution{
-    ArrayList<String> ans;
-    ArrayList<String> CamelCase(int N,String[] Dictionary,String Pattern){
-        ans=new ArrayList<>();
-        trie root=new trie();
-        build(Dictionary,root);
-        find(Pattern,root);
-        Collections.sort(ans);
-        if(ans.isEmpty()) ans.add("-1");
+//WORD SEARCH - MAY 30
+class Solution
+{
+    boolean adjacentSearch(char[][] board, String word, int i, int j, int len)
+    {
+        if(len == word.length())
+            return true;
+        if(i < 0 || j < 0 || i >= board.length || j >= board[0].length)
+            return false;
+        if(board[i][j] != word.charAt(len))
+            return false;
+        board[i][j] = '*';
+        boolean ans = 
+            adjacentSearch(board, word, i-1, j, len+1) || 
+            adjacentSearch(board, word, i+1, j, len+1) || 
+            adjacentSearch(board, word, i, j-1, len+1) || 
+            adjacentSearch(board, word, i, j+1, len+1);   
+        board[i][j] = word.charAt(len);
         return ans;
     }
-    public void build(String a[], trie root){
-        trie temp=null;
-        for(int i = 0;i < a.length;i++){
-            temp = root;
-            for(int j = 0;j < a[i].length();j++){
-                if(Character.isLowerCase(a[i].charAt(j)))continue;
-                if(temp.ch[a[i].charAt(j)-'A'] == null)
-                    temp.ch[a[i].charAt(j)-'A'] = new trie();
-                temp = temp.ch[a[i].charAt(j)-'A'];
-            }
-            temp.arr.add(a[i]);
-        }
-    }
-    public int find(String s, trie root){
-        for(int i = 0;i < s.length();i++){
-            if(root.ch[s.charAt(i)-'A'] == null)
-            return 0;
-            root = root.ch[s.charAt(i)-'A'];
-        }
-        printAllWords(root);
-        return 1;
-    }
-    void printAllWords(trie root) {
-        for (String str : root.arr) ans.add(str);
-        for (int i = 0; i < 26; i++) {
-            trie child = root.ch[i];
-            if (child!=null) printAllWords(child);
-        }
-    }
-    public class trie
+    
+    public boolean isWordExist(char[][] board, String word)
     {
-        trie ch[];
-        ArrayList<String> arr;
-        public trie()
+        for(int i = 0; i < board.length; i++)
         {
-            ch=new trie[26];
-            for(int i=0;i<26;i++){
-                ch[i]=null;
+            for(int j = 0; j < board[0].length; j++)
+            {
+                if(board[i][j] == word.charAt(0) && adjacentSearch(board, word, i, j, 0))
+                    return true;
             }
-            arr=new ArrayList<>();
         }
+        return false;
     }
 }
 ```
