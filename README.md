@@ -1,27 +1,42 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FREQUENCY GAME - MAY 31`**
+**`TOPOLOGICAL SORT - JUNE 01`**
 
 ```java
-//FREQUENCY GAME - MAY 31
-class Solution {
-    public static int LargButMinFreq(int arr[], int n) {
-        HashMap<Integer,Integer> hm=new HashMap<>();
-        for(int i:arr){
-            hm.put(i,hm.getOrDefault(i,0)+1);
+//TOPOLOGICAL SORT - JUNE 01
+class Solution
+{
+    static int[] topoSort(int N, ArrayList<ArrayList<Integer>> list) 
+    {
+        boolean visited[] = new boolean[N];
+        Arrays.fill(visited, false);
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < N; i++) 
+        {
+            if (!visited[i]) 
+                topo(list, i, visited,st);
         }
-        int freq=Integer.MAX_VALUE;
-        for(int i:hm.values()){
-            freq=Math.min(freq,i);
+        int A[] = new int[st.size()];
+        int i = -1;
+        while (!st.isEmpty()) 
+        {
+            A[++i] = st.peek(); 
+            st.pop();
         }
-        int ans=0;
-        for(Map.Entry<Integer,Integer> e:hm.entrySet()){
-            if(e.getValue()==freq){
-                ans=Math.max(ans,e.getKey());
-            }
+        return A;
+    }
+    
+    static void topo(ArrayList<ArrayList<Integer>> list, int it,
+                     boolean visited[], Stack<Integer> s)
+    {
+        visited[it] = true; 
+        for (int i=0; i<list.get(it).size();i++) 
+        {
+            if (!visited[list.get(it).get(i)]) 
+                topo(list, list.get(it).get(i), visited, s);
         }
-        return ans;
+        s.push(it); 
     }
 }
 ```
