@@ -1,7 +1,7 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`TOPOLOGICAL SORT - JUNE 01`**
+**`SANTA BANTA - JUNE 02`**
 
 ```java
 //SANTA BANTA - JUNE 02
