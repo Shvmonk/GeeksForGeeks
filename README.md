@@ -1,60 +1,31 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`SANTA BANTA - JUNE 02`**
+**`FIND MAXIMUM EQUAL SUM OF THREE STACKS - JUNE 03`**
 
 ```java
-//SANTA BANTA - JUNE 02
-class Complete{
-    static ArrayList<Integer> graph[];
-    static int cnt;
-    static ArrayList<Integer> primes;
-    public static void precompute () {
-        primes=new ArrayList<>();
-        int N=3000000;
-        boolean v[]=new boolean[N+1];
-        Arrays.fill(v,true);
-        for(int i=2;i*i<=N;i++){
-            if(v[i]){
-                for(int j=i*i;j<=N;j+=i){
-                    v[j]=false;
-                }
+//FIND MAXIMUM EQUAL SUM OF THREE STACKS - JUNE 03
+class Solution {
+    public static int maxEqualSum(int N1,int N2,int N3, int[] S1, int[] S2, int[] S3) {
+        int sum1=Arrays.stream(S1).sum();
+        int sum2=Arrays.stream(S2).sum();
+        int sum3=Arrays.stream(S3).sum();
+        int top1=0,top2=0,top3=0;
+        while(true){
+            if(top1==N1 || top2==N2 || top3==N3){
+                return 0;
             }
-        }
-        for(int i=2;i<=N;i++){
-            if(v[i]){
-                primes.add(i);
+            if(sum1==sum2 && sum2==sum3){
+                return sum1;
             }
-        }
-    }
-    public static int helpSanta (int n, int m, int g[][]) {
-        graph=new ArrayList[n+1];
-        for(int i=0;i<=n;i++){
-            graph[i]=new ArrayList<>();
-        }
-        for(int i=0;i<m;i++){
-            graph[g[i][0]].add(g[i][1]);
-            graph[g[i][1]].add(g[i][0]);
-        }
-        boolean v[]=new boolean[n+1];
-        int max_connection=0;
-        for(int i=1;i<=n;i++){
-            if(!v[i]){
-                cnt=0;
-                dfs(i,v);
-                max_connection=Math.max(max_connection,cnt);
+            if(sum1>=sum2 && sum1>=sum3){
+                sum1-=S1[top1++];
             }
-        }
-        if(max_connection==1)return -1;
-        return primes.get(max_connection-1);
-    }
-    public static void dfs(int s,boolean v[])
-    {
-        v[s]=true;
-        cnt++;
-        for(int i:graph[s]){
-            if(!v[i]){
-                dfs(i,v);  
+            else if(sum2>=sum1 && sum2>=sum3){
+                sum2-=S2[top2++];
+            }
+            else if(sum3>=sum1 && sum3>=sum2){
+                sum3-=S3[top3++];
             }
         }
     }
