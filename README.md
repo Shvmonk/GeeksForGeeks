@@ -1,39 +1,21 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FIND MAXIMUM EQUAL SUM OF THREE STACKS - JUNE 03`**
+**`FIND THE CLOSEST ELEMENT IN BST - JUNE 05**
 
 ```java
-//REVERSING THE EQUATION - JUNE 04
+//FIND THE CLOSEST ELEMENT IN BST - JUNE 05
 class Solution
 {
-    String reverseEqn(String S)
-    {
-        char s[]=S.toCharArray();
-        StringBuilder res = new StringBuilder();
-        int n = S.length();
-        int i = n - 1;
-        Stack<Character> st=new Stack<>();
-        while (i >= 0)
-        {
-            if (s[i] == '+' || s[i] == '-' || s[i] == '*' || s[i] == '/')
-            {
-                while (!st.isEmpty ())
-                {
-                    res.append(st.pop());
-                }
-                res.append(s[i]);
-            }
-            else
-                st.push(s[i]);
-            i--;
-        }
-        while (!st.isEmpty ())
-        {
-            res.append(st.pop());
-        }
-        
-        return res.toString();
+    static int minDiff(Node  root, int k) 
+    { 
+        if(root==null)
+            return Integer.MAX_VALUE;
+        if(root.data==k)
+            return 0;
+        if(root.data>k)
+            return Math.min( Math.abs(root.data-k) , minDiff(root.left,k) );
+        return Math.min( Math.abs(root.data-k) , minDiff(root.right,k) );
     }
 }
 ```
