@@ -4,18 +4,38 @@
 **`FIND THE CLOSEST ELEMENT IN BST - JUNE 05**
 
 ```java
-//FIND THE CLOSEST ELEMENT IN BST - JUNE 05
-class Solution
+//PREDECESSOR AND SUCCESSOR - JUNE 06
+public static void findPreSuc(Node root, int key)
 {
-    static int minDiff(Node  root, int k) 
-    { 
-        if(root==null)
-            return Integer.MAX_VALUE;
-        if(root.data==k)
-            return 0;
-        if(root.data>k)
-            return Math.min( Math.abs(root.data-k) , minDiff(root.left,k) );
-        return Math.min( Math.abs(root.data-k) , minDiff(root.right,k) );
-    }
+    if (root == null) return ;
+    	if (root.data == key)
+    	{
+    		if (root.left != null)
+    		{
+    			Node tmp = root.left;
+    			while (tmp.right!=null)
+    				tmp = tmp.right;
+    			pre = tmp ;
+    		}
+    		if (root.right != null)
+    		{
+    			Node tmp = root.right ;
+    			while (tmp.left!=null)
+    				tmp = tmp.left ;
+    			suc = tmp ;
+    		}
+    		return ;
+    	}
+    	if (root.data > key)
+    	{
+    		suc = root ;
+    		findPreSuc(root.left, key) ;
+    	}
+    	else
+    	{
+    		pre = root ;
+    		findPreSuc(root.right, key) ;
+    	}
+}
 }
 ```
