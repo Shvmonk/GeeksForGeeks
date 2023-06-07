@@ -1,41 +1,28 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FIND THE CLOSEST ELEMENT IN BST - JUNE 05**
+**`LEAST PRIME FACTOR- JUNE 07**
 
 ```java
-//PREDECESSOR AND SUCCESSOR - JUNE 06
-public static void findPreSuc(Node root, int key)
+//LEAST PRIME FACTOR - 07 JUNE 
+class Solution
 {
-    if (root == null) return ;
-    	if (root.data == key)
-    	{
-    		if (root.left != null)
-    		{
-    			Node tmp = root.left;
-    			while (tmp.right!=null)
-    				tmp = tmp.right;
-    			pre = tmp ;
-    		}
-    		if (root.right != null)
-    		{
-    			Node tmp = root.right ;
-    			while (tmp.left!=null)
-    				tmp = tmp.left ;
-    			suc = tmp ;
-    		}
-    		return ;
-    	}
-    	if (root.data > key)
-    	{
-    		suc = root ;
-    		findPreSuc(root.left, key) ;
-    	}
-    	else
-    	{
-    		pre = root ;
-    		findPreSuc(root.right, key) ;
-    	}
-}
+    public int[] leastPrimeFactor(int n)
+    {
+        int least_prime[]=new int[n+1]; 
+        least_prime[1] = 1; 
+      
+        for (int i = 2; i <= n; i++) 
+        {
+            if (least_prime[i] == 0) 
+            {
+                least_prime[i] = i;
+                for (int j = 2*i; j <= n; j += i) 
+                    if (least_prime[j] == 0) 
+                       least_prime[j] = i; 
+            } 
+        }
+        return least_prime;
+    }
 }
 ```
