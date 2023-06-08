@@ -1,28 +1,38 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`LEAST PRIME FACTOR- JUNE 07**
+**`FIND KTH PERMUTATION - JUNE 08**
 
 ```java
-//LEAST PRIME FACTOR - 07 JUNE 
-class Solution
-{
-    public int[] leastPrimeFactor(int n)
+//FIND KTH PERMUTATION - JUNE 08
+class Solution {
+    public static String solve(int n, int k, int fact[], int nums[])
     {
-        int least_prime[]=new int[n+1]; 
-        least_prime[1] = 1; 
-      
-        for (int i = 2; i <= n; i++) 
+        if (n == 0)
+            return "";
+        int c = k / fact[n - 1] + 1;
+        String str = "";
+        for (int i = 0; i < nums.length; i++)
         {
-            if (least_prime[i] == 0) 
+            c -= (nums[i] == 0?1:0);
+
+            if (c == 0 && nums[i] == 0)
             {
-                least_prime[i] = i;
-                for (int j = 2*i; j <= n; j += i) 
-                    if (least_prime[j] == 0) 
-                       least_prime[j] = i; 
-            } 
+                nums[i] = 1;
+                str += String.valueOf(i + 1);
+                break;
+            }
         }
-        return least_prime;
+        return str + solve(n - 1, k % fact[n - 1], fact, nums);
     }
-}
+    public static String kthPermutation(int n,int k) {
+        int fact[]=new int[n+1];
+        Arrays.fill(fact,1);
+        for (int i = 1; i <= n; i++)
+            fact[i] = i * fact[i - 1];
+        int nums[]=new int[n];
+        String s = solve(n, k - 1, fact, nums);
+        return s;
+    }
+}  
 ```
