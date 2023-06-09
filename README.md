@@ -1,38 +1,46 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**`FIND KTH PERMUTATION - JUNE 08**
+**PERMUTATIONS OF A GIVEN STRING - JUNE 09**
 
 ```java
-//FIND KTH PERMUTATION - JUNE 08
+//PERMUTATIONS OF A GIVEN STRING - JUNE 09
 class Solution {
-    public static String solve(int n, int k, int fact[], int nums[])
+    HashSet<String> H;
+    public List<String> find_permutation(String S) {
+        int n=S.length();
+        char c[]=S.toCharArray();
+        H=new HashSet<>();
+        H.add(S);
+        fun(0,c);
+        List<String> A=new ArrayList<>();
+        for(String i:H){
+            A.add(i);
+        }
+        Collections.sort(A);
+        return A;
+    }
+    public void fun(int i,char c[])
     {
-        if (n == 0)
-            return "";
-        int c = k / fact[n - 1] + 1;
-        String str = "";
-        for (int i = 0; i < nums.length; i++)
-        {
-            c -= (nums[i] == 0?1:0);
-
-            if (c == 0 && nums[i] == 0)
-            {
-                nums[i] = 1;
-                str += String.valueOf(i + 1);
-                break;
+        if(i==c.length)return;
+        for(int j=i;j<c.length;j++){
+            if(c[i]!=c[j]){
+                char temp=c[i];
+                c[i]=c[j];
+                c[j]=temp;
+                String st="";
+                for(char ch:c){
+                    st+=ch;
+                }
+                H.add(st);
+                fun(i+1,c);
+                temp=c[i];
+                c[i]=c[j];
+                c[j]=temp;
+            }else{
+                fun(i+1,c);
             }
         }
-        return str + solve(n - 1, k % fact[n - 1], fact, nums);
     }
-    public static String kthPermutation(int n,int k) {
-        int fact[]=new int[n+1];
-        Arrays.fill(fact,1);
-        for (int i = 1; i <= n; i++)
-            fact[i] = i * fact[i - 1];
-        int nums[]=new int[n];
-        String s = solve(n, k - 1, fact, nums);
-        return s;
-    }
-}  
+}
 ```
