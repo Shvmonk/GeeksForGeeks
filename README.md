@@ -1,46 +1,44 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**PERMUTATIONS OF A GIVEN STRING - JUNE 09**
+**ARRAYING THE ARRAY - JUNE 10**
 
 ```java
-//PERMUTATIONS OF A GIVEN STRING - JUNE 09
+//ARRAYING THE ARRAY - 10 JUNE 
 class Solution {
-    HashSet<String> H;
-    public List<String> find_permutation(String S) {
-        int n=S.length();
-        char c[]=S.toCharArray();
-        H=new HashSet<>();
-        H.add(S);
-        fun(0,c);
-        List<String> A=new ArrayList<>();
-        for(String i:H){
-            A.add(i);
-        }
-        Collections.sort(A);
-        return A;
-    }
-    public void fun(int i,char c[])
+    public void Rearrange(int a[], int n)
     {
-        if(i==c.length)return;
-        for(int j=i;j<c.length;j++){
-            if(c[i]!=c[j]){
-                char temp=c[i];
-                c[i]=c[j];
-                c[j]=temp;
-                String st="";
-                for(char ch:c){
-                    st+=ch;
-                }
-                H.add(st);
-                fun(i+1,c);
-                temp=c[i];
-                c[i]=c[j];
-                c[j]=temp;
-            }else{
-                fun(i+1,c);
-            }
-        }
+        RearrangePosNeg(a, 0, n - 1); 
+    }
+    public void RearrangePosNeg(int arr[], int l, int r)
+    { 
+        if (l < r) { 
+            int m = l + (r - l) / 2; 
+            RearrangePosNeg(arr, l, m); 
+            RearrangePosNeg(arr, m + 1, r); 
+            merge(arr, l, m, r); 
+        } 
+    }
+    public void merge(int arr[], int l, int m, int r) 
+    { 
+        int i = l;
+        int j = m + 1; 
+        while (i <= m && arr[i] < 0) 
+            i++; 
+        while (j <= r && arr[j] < 0) 
+            j++; 
+        reverse(arr, i, m); 
+        reverse(arr, m + 1, j - 1); 
+        reverse(arr, i, j - 1); 
+    }
+    public void reverse(int arr[], int l, int r) 
+    { 
+        if (l < r) { 
+            int temp=arr[l];
+            arr[l]=arr[r];
+            arr[r]=temp;
+            reverse(arr, ++l, --r); 
+        } 
     }
 }
 ```
