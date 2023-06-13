@@ -1,21 +1,49 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**ROD CUTTING - JUNE 12**
+**K LARGEST ELEMENTS - JUNE 13**
 
 ```java
-//ROD CUTTING - JUNE 12
+//K LARGEST ELEMENTS - JUNE 13
 class Solution {
-    public int cutRod(int price[], int n) {
-        int val[] = new int[n + 1];
-        val[0] = 0;
-        for (int i = 1; i <= n; i++) {
-            int max_val = Integer.MIN_VALUE;
-            for (int j = 0; j < i; j++)
-                max_val = Math.max(max_val, price[j] + val[i - j - 1]);
-            val[i] = max_val;
+    int[] kLargest(int[] arr, int n, int k) {
+        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+        for(int i=0;i<n-k;i++){
+            pq.add(arr[i]);
         }
-        return val[n];
+        if(pq.isEmpty()){
+            ArrayList<Integer> A=new ArrayList<>();
+            int ans[]=new int[k];
+            for(int i:arr){
+                A.add(i);
+            }
+            Collections.sort(A,Collections.reverseOrder());
+            int in=0;
+            for(int i:A){
+                ans[in++]=i;
+            }
+            return ans;
+        }
+        for(int i=n-k;i<n;i++){
+            if(pq.peek()>arr[i]){
+                pq.poll();
+                pq.add(arr[i]);
+            }
+        }
+        ArrayList<Integer> A=new ArrayList<>();
+        int ans[]=new int[k];
+        int in=0;
+        for(int i=0;i<n;i++){
+            if(arr[i]>=pq.peek())
+            A.add(arr[i]);
+        }
+        Collections.sort(A,Collections.reverseOrder());
+        for(int i:A){
+            if(in<k)
+            ans[in++]=i;
+            else break;
+        }
+        return ans;
     }
 }
 ```
