@@ -1,22 +1,48 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**MAXIMUM DIAMONDS - JUNE 14**
+**LONGEST PALINDROME IN A STRING - JUNE 15**
 
 ```java
-//MAXIMUM DIAMONDS - JUNE 14
-class Solution {
-    static long maxDiamonds(int[] A, int N, int K) {
-        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
-        for(int i:A){
-            pq.add(i);
+//LONGEST PALINDROME IN A STRING - JUNE 15
+class Solution{
+    static String longestPalin(String S){
+      int fi = 0, fj = 0, j, k, n = S.length ();
+        for (int i = 0; i < n; ++i)
+        {
+            j = i - 1;
+            k = i + 1;
+            while (j >= 0 && k < n)
+            {
+                if (S.charAt(j) != S.charAt(k))
+                    break;
+                j--;
+                k++;
+            }
+            if (k - j - 1 > fj - fi + 1)
+            {
+                fi = j + 1;
+                fj = k - 1;
+            }
+            if (i < n - 1 && S.charAt(i) == S.charAt(i+1))
+            {
+                j = i - 1;
+                k = i + 2;
+                while (j >= 0 && k < n)
+                {
+                    if (S.charAt(j) != S.charAt(k))
+                        break;
+                    j--;
+                    k++;
+                }
+                if (k - j - 1 > fj - fi + 1)
+                {
+                    fi = j + 1;
+                    fj = k - 1;
+                }
+            }
         }
-        long ans=0;
-        while(!pq.isEmpty() && K-->0){
-            ans+=pq.peek();
-            pq.add(pq.poll()/2);
-        }       
-        return ans;
+        return S.substring (fi, fj + 1);
     }
 }
 ```
