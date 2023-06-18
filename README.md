@@ -1,48 +1,36 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**LONGEST PALINDROME IN A STRING - JUNE 15**
+**TICKET COUNTER - JUNE 18**
 
 ```java
-//LONGEST PALINDROME IN A STRING - JUNE 15
-class Solution{
-    static String longestPalin(String S){
-      int fi = 0, fj = 0, j, k, n = S.length ();
-        for (int i = 0; i < n; ++i)
-        {
-            j = i - 1;
-            k = i + 1;
-            while (j >= 0 && k < n)
-            {
-                if (S.charAt(j) != S.charAt(k))
-                    break;
-                j--;
-                k++;
+//TICKET COUNTER - JUNE 18
+class Solution {
+    public static int distributeTicket(int N,int K)
+    {
+        Deque<Integer> dq=new LinkedList<>();
+		for(int i=1;i<=N;i++){
+            dq.addLast(i);
+	    }
+	    int ans=0;
+	    int turn=0;
+	    while(dq.size()>1){
+	        if(turn==0){
+	            int in=0;
+	            while(dq.size()>1 && in<K){
+	                ans=dq.pollFirst();
+	                in++;
+	            }
+	        }else{
+	            int in=0;
+	            while(dq.size()>1 && in<K){
+	                ans=dq.pollLast();
+	                in++;
+	            }
             }
-            if (k - j - 1 > fj - fi + 1)
-            {
-                fi = j + 1;
-                fj = k - 1;
-            }
-            if (i < n - 1 && S.charAt(i) == S.charAt(i+1))
-            {
-                j = i - 1;
-                k = i + 2;
-                while (j >= 0 && k < n)
-                {
-                    if (S.charAt(j) != S.charAt(k))
-                        break;
-                    j--;
-                    k++;
-                }
-                if (k - j - 1 > fj - fi + 1)
-                {
-                    fi = j + 1;
-                    fj = k - 1;
-                }
-            }
-        }
-        return S.substring (fi, fj + 1);
+	        turn^=1;
+	    }
+	    return dq.pollFirst();
     }
 }
 ```
