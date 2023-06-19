@@ -1,36 +1,19 @@
 # **💡  GeeksForGeeks**
 **POTD Solution**
 
-**TICKET COUNTER - JUNE 18**
+**REARRANGE AN ARRAY WITH O(1) EXTRA SPACE - JUNE 19**
 
 ```java
-//TICKET COUNTER - JUNE 18
-class Solution {
-    public static int distributeTicket(int N,int K)
+//REARRANGE AN ARRAY WITH O(1) EXTRA SPACE - JUNE 19
+class Solution
+{
+    static void arrange(long arr[], int n)
     {
-        Deque<Integer> dq=new LinkedList<>();
-		for(int i=1;i<=N;i++){
-            dq.addLast(i);
-	    }
-	    int ans=0;
-	    int turn=0;
-	    while(dq.size()>1){
-	        if(turn==0){
-	            int in=0;
-	            while(dq.size()>1 && in<K){
-	                ans=dq.pollFirst();
-	                in++;
-	            }
-	        }else{
-	            int in=0;
-	            while(dq.size()>1 && in<K){
-	                ans=dq.pollLast();
-	                in++;
-	            }
-            }
-	        turn^=1;
-	    }
-	    return dq.pollFirst();
+        int i = 0;
+        for(i = 0; i < n; i++)
+         arr[(int)i]+=(arr[(int)arr[(int)i]]%n)*n;
+        for(i = 0; i < n; i++)
+            arr[(int)i] = arr[(int)i]/n;
     }
 }
 ```
